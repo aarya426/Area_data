@@ -7,7 +7,6 @@ class AreaService:
         self.areas = self._load_data()
 
     def _load_data(self):
-        """Loads data from the JSON file safely."""
         if not os.path.exists(self.data_file):
             print(f"Warning: {self.data_file} not found. Starting with empty data.")
             return []
@@ -19,10 +18,6 @@ class AreaService:
             return []
 
     def _calculate_overall_score(self, area):
-        """
-        Calculates the average AreaScore dynamically based on sub-scores.
-        You can adjust weights here if needed.
-        """
         scores = [
             area.get('water_score', 0),
             area.get('traffic_score', 0),
@@ -32,7 +27,6 @@ class AreaService:
         return round(sum(scores) / len(scores)) if scores else 0
 
     def browse_all(self, sort_by_score=False):
-        """Returns all areas. Optionally sorts them by their calculated AreaScore."""
         results = []
         for area in self.areas:
             area_copy = area.copy()
@@ -44,7 +38,6 @@ class AreaService:
         return results
 
     def search_area(self, query):
-        """Searches areas by name or region (case-insensitive matches)."""
         query = query.lower()
         results = []
         
@@ -57,7 +50,6 @@ class AreaService:
         return results
 
     def get_area_by_id(self, area_id):
-        """Retrieves a specific area's details by its ID."""
         for area in self.areas:
             if area['id'] == area_id:
                 area_copy = area.copy()
